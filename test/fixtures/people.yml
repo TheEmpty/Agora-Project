@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  first_name: Mohammad
+  last_name: El-Abid
+  email: mohammad.elabid@gmail.com
+  address: Stamford, CT
+  phonenumber: (331)-481-1372
+
+two:
+  first_name: John
+  last_name: Doe
+  email: MyString
+  address: MyString
+  phonenumber: MyString

@@ -1,0 +1,45 @@
+<h1>Search for a person</h1>
+<% if !params[:first_name].blank? or !params[:last_name].blank? %>
+    <%= link_to "Clear search query", params_without(:first_name, :last_name) %>
+<% end %>
+<%= form_tag(nil,:method => "get") do %>
+    <%= hidden_field_tag "sort", params[:sort] %>
+    <%= hidden_field_tag "order", params[:order] %>
+    First name: <%= text_field_tag "first_name", params[:first_name] %><br>
+    Last name: <%= text_field_tag "last_name", params[:last_name] %><br>
+    <%= submit_tag "Search" %>
+<% end %>
+<h1>Listing people</h1>
+<% if !params[:sort].blank? %>
+    <%= link_to "Clear sorting", params_without(:sort, :direction) %>
+<% end %>
+<table>
+  <tr>
+    <th><%= link_to_sortable "first_name" %></th>
+    <th><%= link_to_sortable "last_name" %></th>
+    <th><%= link_to_sortable "email" %></th>
+    <th><%= link_to_sortable "address" %></th>
+    <th><%= link_to_sortable "phonenumber" %></th>
+    <th>View</th>
+    <th colspan="2">Administrate</th>
+  </tr>
+
+<% @people.each do |person| %>
+  <tr>
+    <td><%= person.first_name %></td>
+    <td><%= person.last_name %></td>
+    <td><%= mail_to person.email %></td>
+    <td><%= person.address %></td>
+    <td><%= person.pretty_phonenumber %></td>
+    <td><%= link_to 'View', person %></td>
+    <td><%= link_to 'Edit', edit_person_path(person) %></td>
+    <td><%= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+Showing <%= @people.length %> of <%= pluralize @people.total_entries, "person" %><br>
+<%= will_paginate @people %><br>
+<br>
+
+<%= link_to 'New Person', new_person_path %>
